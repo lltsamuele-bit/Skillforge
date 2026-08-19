@@ -1,0 +1,1601 @@
+```html
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07110d">
+<meta name="description" content="SkillForge - Il tuo percorso nel calisthenics">
+<title>SkillForge</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #06100b;
+  color: #f3fff8;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.app {
+  max-width: 720px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 18px 14px 100px;
+  background:
+    radial-gradient(circle at 100% 0, #123c28, transparent 35%);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.logo b {
+  color: #59f29b;
+}
+
+.streak {
+  background: #10281b;
+  border: 1px solid #254936;
+  padding: 8px 11px;
+  border-radius: 99px;
+}
+
+.hero {
+  margin-top: 16px;
+  padding: 22px;
+  border: 1px solid #29533d;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #123923, #0b1a12);
+}
+
+.ey {
+  color: #59f29b;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .13em;
+}
+
+.hero h1 {
+  margin: 8px 0;
+  font-size: 36px;
+  line-height: 1;
+}
+
+.hero p,
+.muted {
+  color: #9ab0a5;
+}
+
+.btn {
+  padding: 13px 16px;
+  border: 0;
+  border-radius: 13px;
+  background: #59f29b;
+  color: #06180d;
+  font-weight: 900;
+}
+
+.btn.secondary {
+  background: #173025;
+  color: white;
+  border: 1px solid #284536;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.stat,
+.card {
+  padding: 13px;
+  border: 1px solid #1e382b;
+  border-radius: 17px;
+  background: #0c1b13;
+}
+
+.stat small {
+  color: #8ca49a;
+}
+
+.stat strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 21px;
+}
+
+section {
+  margin-top: 22px;
+}
+
+h2 {
+  margin: 0 0 11px;
+  font-size: 19px;
+}
+
+.tabs {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.tab {
+  padding: 9px 13px;
+  border: 1px solid #203a2c;
+  border-radius: 99px;
+  background: #0c1b13;
+  color: white;
+  white-space: nowrap;
+}
+
+.tab.active {
+  background: #59f29b;
+  color: #06180d;
+}
+
+.skills {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.skill {
+  display: block;
+}
+
+.skillhead {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tag {
+  padding: 5px 7px;
+  border-radius: 8px;
+  background: #1b3527;
+  color: #59f29b;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.skill h3 {
+  margin: 9px 0 4px;
+}
+
+.bar {
+  height: 7px;
+  margin: 10px 0;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #172920;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #59f29b, #c7ffda);
+}
+
+.skill button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: 0;
+  border-radius: 11px;
+  background: #152a20;
+  color: white;
+}
+
+.notice {
+  padding: 12px;
+  border-left: 3px solid #59f29b;
+  border-radius: 10px;
+  background: #102319;
+  color: #c8d9d0;
+}
+
+.bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  padding: 9px;
+  border-top: 1px solid #193226;
+  background: #07110ddd;
+  backdrop-filter: blur(12px);
+}
+
+.bottom nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  width: 100%;
+  max-width: 720px;
+  margin: auto;
+}
+
+.nav {
+  padding: 8px;
+  border: 0;
+  border-radius: 11px;
+  background: transparent;color: #8fa69b;
+  font-size: 12px;
+}
+
+.nav.active {
+  background: #10261a;
+  color: #59f29b;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  display: none;
+  align-items: flex-end;
+  background: #000b;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.sheet {
+  width: 100%;
+  max-height: 92vh;
+  overflow: auto;
+  padding: 19px;
+  border: 1px solid #234332;
+  border-radius: 24px 24px 0 0;
+  background: #09150e;
+}
+
+.close {
+  float: right;
+  padding: 7px;
+  border: 0;
+  border-radius: 9px;
+  background: #173025;
+  color: white;
+}
+
+.exercise {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid #1d3428;
+}
+
+.check {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #446352;
+  border-radius: 7px;
+  background: transparent;
+  color: #06180d;
+}
+
+.check.done {
+  background: #59f29b;
+}
+
+.timer {
+  padding: 16px;
+  color: #59f29b;
+  font-size: 54px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.choice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.choice button {
+  padding: 11px;
+  border: 1px solid #284536;
+  border-radius: 10px;
+  background: #12271c;
+  color: white;
+}
+
+.choice button.sel {
+  border-color: #59f29b;
+  background: #173b28;
+  color: #59f29b;
+}
+
+.toast {
+  position: fixed;
+  bottom: 85px;
+  left: 50%;
+  z-index: 12;
+  display: none;
+  transform: translateX(-50%);
+  padding: 11px 14px;
+  border-radius: 12px;
+  background: #59f29b;
+  color: #06180d;
+  font-weight: 800;
+}
+
+.toast.show {
+  display: block;
+}
+
+@media (max-width: 430px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero h1 {
+    font-size: 31px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="top">
+    <div class="logo">
+      SKILL<b>FORGE</b> ⚡
+    </div>
+
+    <div class="streak">
+      🔥 <span id="streak">0</span>
+    </div>
+  </div>
+
+  <div class="hero">
+
+    <div class="ey">
+      OBIETTIVO ATTUALE
+    </div>
+
+    <h1 id="hero">
+      Scegli una skill
+    </h1>
+
+    <p id="heroDesc">
+      Il percorso si adatta al tuo livello e ti porta,
+      step dopo step, verso la skill.
+    </p>
+
+    <button class="btn" onclick="openWorkout()">
+      ▶ Inizia oggi
+    </button>
+
+  </div>
+
+  <div class="stats">
+
+    <div class="stat">
+      <small>Livello</small>
+      <strong id="level">1</strong>
+    </div>
+
+    <div class="stat">
+      <small>XP</small>
+      <strong id="xp">0</strong>
+    </div>
+
+    <div class="stat">
+      <small>Workout</small>
+      <strong id="workouts">0</strong>
+    </div>
+
+    <div class="stat">
+      <small>Skill</small>
+      <strong id="skillsDone">0</strong>
+    </div>
+
+  </div>
+
+  <section>
+
+    <h2>🎯 Prossimo step</h2>
+
+    <div class="card">
+
+      <div class="row">
+
+        <div>
+          <b id="nextTitle">
+            Test iniziale
+          </b>
+
+          <div class="muted" id="nextDesc">
+            Scopri da dove partire.
+          </div>
+        </div>
+
+        <button class="btn secondary"
+                onclick="openTest()">
+          Test
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="row">
+
+      <h2>🗺️ Skill Tree</h2>
+
+      <span class="muted">
+        progressioni
+      </span>
+
+    </div>
+
+    <div class="tabs" id="tabs"></div>
+
+    <div class="skills" id="skills"></div>
+
+  </section>
+
+  <section>
+
+    <h2>🔥 Non mollare</h2>
+
+    <div class="notice" id="quote">
+      La costanza costruisce le skill.
+      Anche oggi conta.
+    </div>
+
+  </section>
+
+</div>
+
+<div class="bottom">
+
+  <nav>
+
+    <button class="nav active"
+            onclick="scrollToTop()">
+      🏠<br>Home
+    </button>onclick="document.querySelector('#skills').scrollIntoView({behavior:'smooth'})">
+      🗺️<br>Skill
+    </button>
+
+    <button class="nav"
+            onclick="openWorkout()">
+      💪<br>Workout
+    </button>
+
+    <button class="nav"
+            onclick="openSettings()">
+      ⚙️<br>Profilo
+    </button>
+
+  </nav>
+
+</div>
+
+<div class="modal" id="modal">
+
+  <div class="sheet">
+
+    <button class="close"
+            onclick="closeModal()">
+      ✕
+    </button>
+
+    <div id="modalContent"></div>
+
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+```
+
+    <button class="nav"```html
+<script>
+
+const skills = {
+
+  "Forza": [
+
+    [
+      "Muscle-up",
+      "INTERMEDIO",
+      "Pull-up → Chest-to-bar → Explosive → High pull-up → Dip → Transition → Muscle-up",
+      [
+        "Dead hang 3×30s",
+        "Scapular pull-up 3×8",
+        "Pull-up 4×5",
+        "Chest-to-bar 4×4",
+        "Explosive pull-up 4×3",
+        "Straight bar dip 3×8",
+        "Band/low-bar transition 4×4"
+      ]
+    ],
+
+    [
+      "Front Lever",
+      "AVANZATO",
+      "Tuck → Advanced tuck → One leg → Straddle → Full",
+      [
+        "Hollow hold 3×30s",
+        "Tuck hold 5×10s",
+        "Tuck raises 3×6",
+        "Advanced tuck 5×8s",
+        "One-leg hold 4×8s",
+        "Straddle hold 4×6s",
+        "Front lever negatives 3×2"
+      ]
+    ],
+
+    [
+      "Back Lever",
+      "INTERMEDIO",
+      "German hang → Tuck → Advanced tuck → Straddle → Full",
+      [
+        "German hang 3×20s",
+        "Skin the cat 3×5",
+        "Tuck hold 5×10s",
+        "Advanced tuck 4×8s",
+        "Straddle hold 4×8s"
+      ]
+    ],
+
+    [
+      "One-arm Pull-up",
+      "AVANZATO",
+      "Pull-up → Archer → Assisted → Negative → One-arm",
+      [
+        "Pull-up 5×5",
+        "Archer pull-up 4×4 per lato",
+        "Assisted one-arm 4×3 per lato",
+        "One-arm negative 3×1 per lato"
+      ]
+    ],
+
+    [
+      "Pistol Squat",
+      "INTERMEDIO",
+      "Squat → Split squat → Assisted → Full",
+      [
+        "Air squat 3×12",
+        "Bulgarian split squat 3×8 per lato",
+        "Assisted pistol 4×5 per lato",
+        "Pistol squat 3×3 per lato"
+      ]
+    ]
+
+  ],
+
+  "Controllo": [
+
+    [
+      "Handstand",
+      "PRINCIPIANTE",
+      "Wall → Kick-up → Equilibrio → Handstand libero",
+      [
+        "Wrist preparation 3 min",
+        "Wall handstand 4×20s",
+        "Box pike hold 3×20s",
+        "Kick-up practice 10 min"
+      ]
+    ],
+
+    [
+      "L-sit",
+      "PRINCIPIANTE",
+      "Tuck → One leg → L-sit",
+      [
+        "Tuck sit 4×15s",
+        "Compression lifts 3×8",
+        "One-leg L-sit 4×10s",
+        "L-sit 5×10s"
+      ]
+    ],
+
+    [
+      "V-sit",
+      "AVANZATO",
+      "L-sit → Compression → One-leg → V-sit",
+      [
+        "L-sit 5×15s",
+        "Seated compression 4×10",
+        "Pike lifts 4×8",
+        "One-leg V-sit 4×8s",
+        "V-sit 5×6s"
+      ]
+    ],
+
+    [
+      "One-arm Handstand",
+      "AVANZATO",
+      "Handstand → Weight shift → Fingertip → One-arm",
+      [
+        "Handstand 10 min",
+        "Weight shifts 4×20s",
+        "Fingertip assistance 5×10s",
+        "One-arm balance drills 5 min"
+      ]
+    ],
+
+    [
+      "One-arm Plank",
+      "AVANZATO",
+      "Plank → Side load → Incline assist → One-arm",
+      [
+        "Plank 3×45s",
+        "Side plank 3×30s per lato",
+        "Incline one-arm plank 4×15s",
+        "One-arm plank progression 5×10s"
+      ]
+    ]
+
+  ],
+
+  "Spinta": [
+
+    [
+      "Planche",
+      "AVANZATO",
+      "Lean → Tuck → Advanced tuck → Straddle → Full",
+      [
+        "Planche lean 5×15s",
+        "Pseudo planche push-up 4×6",
+        "Tuck planche 5×8s",
+        "Advanced tuck 5×6s",
+        "Straddle progression 4×5s",
+        "Planche negative 3×2"
+      ]
+    ],
+
+    [
+      "Handstand Push-up",
+      "AVANZATO",
+      "Pike → Wall HSPU → Deficit → Freestanding",
+      [
+        "Pike push-up 4×8",
+        "Wall handstand 4×30s",
+        "Wall HSPU 5×3",
+        "Deficit HSPU 4×3"
+      ]
+    ],
+
+    [
+      "One-arm Push-up",
+      "INTERMEDIO",
+      "Push-up → Archer → Assisted → One-arm",
+      [
+        "Push-up 4×10",
+        "Archer push-up 4×5 per lato",
+        "Assisted one-arm push-up 4×4 per lato",
+        "One-arm eccentric 3×2 per lato"
+      ]
+    ],
+
+    ["90° HSPU",
+      "AVANZATO",
+      "Handstand → Bent-arm → Negative → 90°",
+      [
+        "Handstand 8 min",
+        "Pike HSPU 4×5",
+        "90° negative 4×2",
+        "Bent-arm press drill 4×3"
+      ]
+    ]
+
+  ],
+
+  "Corpo": [
+
+    [
+      "Human Flag",
+      "AVANZATO",
+      "Side plank → Vertical flag → Tuck → Straddle → Full",
+      [
+        "Side plank 3×30s",
+        "Hanging knee raise 4×8",
+        "Tuck flag 5×8s",
+        "Flag negatives 4×2",
+        "Straddle progression 4×5s"
+      ]
+    ],
+
+    [
+      "Dragon Flag",
+      "AVANZATO",
+      "Reverse crunch → Tuck → Extended → Full",
+      [
+        "Reverse crunch 3×12",
+        "Tuck dragon 4×8s",
+        "Dragon flag negative 4×3",
+        "Dragon flag 3×2"
+      ]
+    ],
+
+    [
+      "Press to Handstand",
+      "AVANZATO",
+      "Pike compression → Tuck press → Straddle press → Full",
+      [
+        "Seated compression 4×10",
+        "Box press drill 4×5",
+        "Tuck press 4×3",
+        "Straddle press progression 4×2"
+      ]
+    ]
+
+  ]
+
+};
+
+let state = JSON.parse(
+  localStorage.getItem("skillforge")
+  ||
+  '{"xp":0,"workouts":0,"streak":0,"selected":"Muscle-up","progress":{},"test":{}}'
+);
+
+let category = "Forza";
+
+let timer = 30;
+let timerInterval = null;
+let currentSkill = null;
+
+const $ = id => document.getElementById(id);
+
+
+function save() {
+
+  localStorage.setItem(
+    "skillforge",
+    JSON.stringify(state)
+  );
+
+  renderStats();
+
+}
+
+
+function renderStats() {
+
+  $("xp").textContent = state.xp;
+
+  $("level").textContent =
+    Math.floor(state.xp / 100) + 1;
+
+  $("workouts").textContent =
+    state.workouts;
+
+  $("streak").textContent =
+    state.streak;
+
+  $("skillsDone").textContent =
+    Object.values(state.progress)
+      .filter(value => value >= 4)
+      .length;
+
+}
+
+
+function getSelectedSkill() {
+
+  for (const categoryName in skills) {
+
+    for (const skill of skills[categoryName]) {
+
+      if (skill[0] === state.selected) {
+
+        return skill;
+
+      }
+
+    }
+
+  }
+
+  return skills.Forza[0];
+
+}
+
+
+function renderTabs() {
+
+  $("tabs").innerHTML =
+    Object.keys(skills)
+      .map(categoryName => `
+
+        <button
+          class="tab ${categoryName === category ? "active" : ""}"
+          onclick="changeCategory('${categoryName}')">
+
+          ${categoryName}
+
+        </button>
+
+      `)
+      .join("");
+
+}
+
+
+function changeCategory(name) {
+
+  category = name;
+
+  renderTabs();
+
+  renderSkills();
+
+}
+
+
+function renderSkills() {
+
+  $("skills").innerHTML =
+    skills[category]
+      .map(skill => {
+
+        const name = skill[0];
+
+        const difficulty = skill[1];
+
+        const progression = skill[2];
+
+        const progress =
+          state.progress[name] || 0;
+
+        const maximum = 4;
+
+        const percentage =
+          Math.min(
+            100,
+            (progress / maximum) * 100
+          );
+
+        return `
+
+          <div class="card skill">
+
+            <div class="skillhead">
+
+              <span class="tag">
+                ${difficulty}
+              </span>
+
+              <span class="muted">
+
+                ${
+                  progress >= 4
+                    ? "🏆 COMPLETA"
+                    : `Step ${Math.min(progress + 1, maximum)}/${maximum}`
+                }
+
+              </span>
+
+            </div>
+
+            <h3>
+              ${name}
+            </h3>
+
+            <div class="muted">
+              ${progression}
+            </div>
+
+            <div class="bar">
+
+              <i
+                style="width:${percentage}%">
+              </i>
+
+            </div>
+
+            <button
+              onclick="chooseSkill('${name}')">
+
+              ${</button>
+
+          </div>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+
+function chooseSkill(name) {
+
+  state.selected = name;
+
+  save();
+
+  const skill = getSelectedSkill();
+
+  const progress =
+    state.progress[name] || 0;
+
+  $("hero").textContent =
+    name;
+
+  $("heroDesc").textContent =
+    skill[2];
+
+  const next =
+    skill[3][
+      Math.min(
+        progress,
+        skill[3].length - 1
+      )
+    ];
+
+  $("nextTitle").textContent =
+    next;
+
+  $("nextDesc").textContent =
+    `Step ${progress + 1}: ${next}`;
+
+  renderSkills();
+
+  showToast(
+    "🎯 Obiettivo impostato: " + name
+  );
+
+}
+
+
+function openWorkout() {
+
+  currentSkill =
+    getSelectedSkill();
+
+  const name =
+    currentSkill[0];
+
+  const progress =
+    state.progress[name] || 0;
+
+  const exercises =
+    currentSkill[3];
+
+  $("modalContent").innerHTML = `
+
+    <div class="ey">
+      WORKOUT
+    </div>
+
+    <h2>
+      ${name}
+    </h2>
+
+    <p class="muted">
+      ${currentSkill[2]}
+    </p>
+
+    <p>
+      <b>
+        Step ${Math.min(progress + 1, 4)}
+      </b>
+    </p>
+
+    ${
+
+      exercises
+        .map(
+          (exercise, index) => `
+
+            <div class="exercise">
+
+              <button
+                class="check"
+                onclick="toggleExercise(this)">
+
+              </button>
+
+              <div>
+
+                <b>
+                  ${exercise}
+                </b>
+
+                <div class="muted">
+                  Tecnica pulita • recupero 60–120s
+                </div>
+
+              </div>
+
+            </div>
+
+          `
+        )
+        .join("")
+
+    }
+
+    <div
+      class="timer"
+      id="timer">
+
+      00:30
+
+    </div>
+
+    <div class="row">
+
+      <button
+        class="btn secondary"
+        onclick="resetTimer()">
+
+        Reset
+
+      </button>
+
+      <button
+        class="btn"
+        id="timerButton"
+        onclick="toggleTimer()">
+
+        Avvia timer
+
+      </button>
+
+    </div>
+
+    <br>
+
+    <button
+      class="btn"
+      style="width:100%"
+      onclick="finishWorkout()">
+
+      ✓ Completa workout
+
+    </button>
+
+  `;
+
+  $("modal").classList.add("open");
+
+  resetTimer();
+
+}
+
+
+function toggleExercise(button) {
+
+  button.classList.toggle("done");
+
+  button.textContent =
+    button.classList.contains("done")
+      ? "✓"
+      : "";
+
+}
+
+
+function closeModal() {
+
+  $("modal").classList.remove("open");
+
+  clearInterval(timerInterval);
+
+  timerInterval = null;
+
+}
+
+
+function resetTimer() {
+
+  clearInterval(timerInterval);
+
+  timerInterval = null;
+
+  timer = 30;
+
+  if ($("timer")) {
+
+    $("timer").textContent =
+      "00:30";
+
+  }
+
+  if ($("timerButton")) {
+
+    $("timerButton").textContent =
+      "Avvia timer";
+
+  }
+
+}
+
+
+function toggleTimer() {
+
+  if (timerInterval) {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+    $("timerButton").textContent =
+      "Riprendi";
+
+    return;
+
+  }
+
+  timerInterval =
+    setInterval(() => {
+
+      timer--;
+
+      $("timer").textContent =
+        "00:" +
+        String(
+          Math.max(0, timer)
+        ).padStart(2, "0");
+
+      if (timer <= 0) {
+
+        clearInterval(timerInterval);
+
+        timerInterval = null;
+
+        $("timerButton").textContent =
+          "✓ Recupero finito";
+
+        showToast(
+          "🔥 Recupero finito!"
+        );
+
+      }
+
+    }, 1000);
+
+  $("timerButton").textContent =
+    "Pausa";
+
+}
+
+
+function finishWorkout() {
+
+  const name =
+    currentSkill[0];
+
+  const progress =
+    state.progress[name] || 0;
+
+  state.progress[name] =
+    Math.min(
+      progress + 1,
+      4
+    );
+
+  state.xp += 25;
+
+  state.workouts++;
+
+  state.streak++;
+
+  save();
+
+  closeModal();
+
+  chooseSkill(name);
+
+  const messages = [
+
+    "🔥 Step completato! +25 XP",
+
+    "💪 Ottimo lavoro! Continua così!",
+                state.selected === name
+                  ? "✓ Obiettivo attuale"
+                  : "Scegli skill"
+              }"⚡ Un altro passo verso la skill!",
+
+    "🏆 La costanza sta pagando!"
+
+  ];
+
+  showToast(
+    state.progress[name] >= 4
+      ? "🏆 SKILL COMPLETATA!"
+      : messages[
+          Math.floor(
+            Math.random() *
+            messages.length
+          )
+        ]
+  );
+
+}
+
+
+function openTest() {
+
+  const name =
+    state.selected;
+
+  $("modalContent").innerHTML = `
+
+    <div class="ey">
+      TEST INIZIALE
+    </div>
+
+    <h2>
+      Da dove parti per ${name}?
+    </h2>
+
+    <p class="muted">
+      Rispondi sinceramente.
+      Il test serve a scegliere
+      un punto di partenza adatto.
+    </p>
+
+    <div class="testq">
+
+      <b>
+        Quanti pull-up puliti riesci a fare?
+      </b>
+
+      <div
+        class="choice"
+        data-question="pull">
+
+        <button onclick="selectAnswer(this,'pull',0)">
+          0–2
+        </button>
+
+        <button onclick="selectAnswer(this,'pull',1)">
+          3–5
+        </button>
+
+        <button onclick="selectAnswer(this,'pull',2)">
+          6–9
+        </button>
+
+        <button onclick="selectAnswer(this,'pull',3)">
+          10+
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="testq">
+
+      <b>
+        Quanto tieni il plank?
+      </b>
+
+      <div
+        class="choice"
+        data-question="plank">
+
+        <button onclick="selectAnswer(this,'plank',0)">
+          0–30s
+        </button>
+
+        <button onclick="selectAnswer(this,'plank',1)">
+          30–60s
+        </button>
+
+        <button onclick="selectAnswer(this,'plank',2)">
+          60–90s
+        </button>
+
+        <button onclick="selectAnswer(this,'plank',3)">
+          90s+
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="testq">
+
+      <b>
+        Handstand al muro?
+      </b>
+
+      <div
+        class="choice"
+        data-question="hand">
+
+        <button onclick="selectAnswer(this,'hand',0)">
+          Mai
+        </button>
+
+        <button onclick="selectAnswer(this,'hand',1)">
+          &lt;20s
+        </button>
+
+        <button onclick="selectAnswer(this,'hand',2)">
+          20–45s
+        </button>
+
+        <button onclick="selectAnswer(this,'hand',3)">
+          45s+
+        </button>
+
+      </div>
+
+    </div>
+
+    <button
+      class="btn"
+      style="width:100%;margin-top:12px"
+      onclick="finishTest()">
+
+      Calcola il mio punto di partenza
+
+    </button>
+
+  `;
+
+  $("modal").classList.add("open");
+
+}
+
+
+function selectAnswer(button, question, value) {
+
+  const container =
+    button.parentElement;
+
+  container
+    .querySelectorAll("button")
+    .forEach(
+      item =>
+        item.classList.remove("sel")
+    );
+
+  button.classList.add("sel");
+
+  state.test[question] =
+    value;
+
+}
+
+
+function finishTest() {
+
+  const pull =
+    state.test.pull ?? 0;
+
+  const plank =
+    state.test.plank ?? 0;
+
+  const hand =
+    state.test.hand ?? 0;
+
+  const score =
+    Math.round(
+      (pull + plank + hand) / 3
+    );
+
+  state.progress[state.selected] =
+    Math.min(score, 3);
+
+  save();
+
+  closeModal();
+
+  chooseSkill(
+    state.selected
+  );
+
+  showToast(
+    "🎯 Percorso personalizzato!"
+  );
+
+}
+
+
+function openSettings() {
+
+  const savedName =
+    localStorage.getItem("athlete")
+    || "";
+
+  $("modalContent").innerHTML = `
+
+    <div class="ey">
+      PROFILO
+    </div>
+
+    <h2>
+      Il tuo percorso
+    </h2>
+
+    <p class="muted">
+      Obiettivo:
+      <b>${state.selected}</b>
+    </p>
+
+    <label>
+
+      Nome atleta
+
+      <input
+        class="field"
+        id="athlete"
+        value="${savedName}"
+        placeholder="Come vuoi essere chiamato?"
+        style="
+          width:100%;
+          padding:12px;
+          margin-top:6px;
+          background:#0d1e15;
+          border:1px solid #284536;
+          border-radius:11px;
+          color:white;</label>
+
+    <br>
+
+    <button
+      class="btn"
+      style="width:100%;margin-top:12px"
+      onclick="saveProfile()">
+
+      Salva profilo
+
+    </button>
+
+    <br><br>
+
+    <button
+      class="btn secondary"
+      style="width:100%"
+      onclick="enableNotifications()">
+
+      🔔 Attiva promemoria
+
+    </button>
+
+    <p class="muted">
+
+      I tuoi progressi vengono salvati
+      sul dispositivo.
+
+    </p>
+
+  `;
+
+  $("modal").classList.add("open");
+
+}
+
+
+function saveProfile() {
+
+  localStorage.setItem(
+    "athlete",
+    $("athlete").value
+  );
+
+  closeModal();
+
+  showToast(
+    "✅ Profilo salvato!"
+  );
+
+}
+
+
+async function enableNotifications() {
+
+  if (!("Notification" in window)) {
+
+    showToast(
+      "Il browser non supporta le notifiche."
+    );
+
+    return;
+
+  }
+
+  const permission =
+    await Notification.requestPermission();
+
+  if (permission === "granted") {
+
+    showToast(
+      "🔔 Notifiche autorizzate!"
+    );
+
+  } else {
+
+    showToast(
+      "Permesso notifiche non concesso."
+    );
+
+  }
+
+}
+
+
+function showToast(message) {
+
+  const toast =
+    $("toast");
+
+  toast.textContent =
+    message;
+
+  toast.classList.add("show");
+
+  setTimeout(
+    () =>
+      toast.classList.remove("show"),
+    2400
+  );
+
+}
+
+
+function scrollToTop() {
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+renderStats();
+
+renderTabs();
+
+renderSkills();
+
+chooseSkill(
+  state.selected
+);
+
+</script>
+```
+        "
+      >```html
+</body>
+</html>
+```
