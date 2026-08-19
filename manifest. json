@@ -1,0 +1,24 @@
+*:
+
+```json
+{
+  "name": "SkillForge Solo",
+  "short_name": "SkillForge",
+  "description": "Il tuo percorso personale nel calisthenics.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#06100b",
+  "theme_color": "#59f29b",
+  "lang": "it",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+```
